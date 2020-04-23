@@ -1,3 +1,107 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# 
+# **收集数据，尤其是有标签、高质量的数据是一件昂贵的工作。**
+# 
+# <br/>
+# 
+# **爬虫**的过程，就是模仿浏览器的行为，往目标站点发送请求，接收服务器的响应数据，提取需要的信息，并进行保存的过程。
+# 
+# **Python**为爬虫的实现提供了工具:requests模块、BeautifulSoup库
+# 
+# 
+
+# ## 任务描述
+# <br/>
+# 
+# **本次实践使用Python来爬取百度百科中《青春有你2》所有参赛选手的信息。**
+# 
+# 数据获取：https://baike.baidu.com/item/青春有你第二季
+# 
+# <img src ="https://ai-studio-static-online.cdn.bcebos.com/6e0058bd57084dec989b2dc68bd61c13d2ad8d4532714aa2a40b6b9818da9037" height='500' width='500'/>
+# <img src="https://ai-studio-static-online.cdn.bcebos.com/e6b2850eabaf4e40882d35d639a81ba1481dbbb212e443979f91fa39bc416117" height='500' width='500' />
+# 
+# 
+# <br/>
+# <br/>
+# 
+
+# <br/>
+# 
+# **上网的全过程:**
+# 
+#     普通用户:
+# 
+#     打开浏览器 --> 往目标站点发送请求 --> 接收响应数据 --> 渲染到页面上。
+# 
+#     爬虫程序:
+# 
+#     模拟浏览器 --> 往目标站点发送请求 --> 接收响应数据 --> 提取有用的数据 --> 保存到本地/数据库。
+# 
+# 
+# **爬虫的过程**：
+# 
+#     1.发送请求（requests模块）
+# 
+#     2.获取响应数据（服务器返回）
+# 
+#     3.解析并提取数据（BeautifulSoup查找或者re正则）
+# 
+#     4.保存数据
+# 
+# 
+
+# 
+# <br/>
+# 
+# **本实践中将会使用以下两个模块，首先对这两个模块简单了解以下：**
+
+# <br/>
+# 
+# **request模块：**
+# 
+#     requests是python实现的简单易用的HTTP库，官网地址：http://cn.python-requests.org/zh_CN/latest/
+#     
+#     requests.get(url)可以发送一个http get请求，返回服务器响应内容。
+#     
+#     
+# 
+# 
+# 
+# 
+
+# <br/>
+# 
+# **BeautifulSoup库：**
+# 
+#     BeautifulSoup 是一个可以从HTML或XML文件中提取数据的Python库。网址：https://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/
+#     
+#     BeautifulSoup支持Python标准库中的HTML解析器,还支持一些第三方的解析器,其中一个是 lxml。
+#     
+#     BeautifulSoup(markup, "html.parser")或者BeautifulSoup(markup, "lxml")，推荐使用lxml作为解析器,因为效率更高。
+
+# In[1]:
+
+
+#如果需要进行持久化安装, 需要使用持久化路径, 如下方代码示例:
+#!mkdir /home/aistudio/external-libraries
+#!pip install beautifulsoup4 -t /home/aistudio/external-libraries
+#!pip install lxml -t /home/aistudio/external-libraries
+
+
+# In[6]:
+
+
+# 同时添加如下代码, 这样每次环境(kernel)启动的时候只要运行下方代码即可:
+import sys
+sys.path.append('/home/aistudio/external-libraries')
+
+
+# ## 一、爬取百度百科中《青春有你2》中所有参赛选手信息，返回页面数据
+
+# In[8]:
+
 
 import json
 import re
@@ -43,6 +147,7 @@ def crawl_wiki_data():
 
 # ## 二、对爬取的页面数据进行解析，并保存为JSON文件
 
+# In[9]:
 
 
 def parse_wiki_data(table_html):
@@ -98,6 +203,7 @@ def parse_wiki_data(table_html):
 
 # ## ！！！请在以下代码块中补充代码，爬取每个选手的百度百科图片，并保存 ！！！
 
+# In[10]:
 
 
 def crawl_pic_urls():
@@ -123,13 +229,20 @@ def crawl_pic_urls():
         #！！！请在以下完成对每个选手图片的爬取，将所有图片url存储在一个列表pic_urls中！！！
     # print(pic_urls);
 
+        
+
+
+
+
+
+
         #！！！根据图片链接列表pic_urls, 下载所有图片，保存在以name命名的文件夹中！！！
         # down_pic(name,pic_urls)
 
 crawl_pic_urls();
 
 
-# 12]:
+# In[11]:
 
 
 def down_pic(name,pic_urls):
@@ -156,7 +269,7 @@ def down_pic(name,pic_urls):
 
 # ## 四、打印爬取的所有图片的路径
 
-
+# In[12]:
 
 
 def show_pic_path(path):
@@ -172,6 +285,7 @@ def show_pic_path(path):
     
 
 
+# In[16]:
 
 
 if __name__ == '__main__':
